@@ -4,7 +4,7 @@ class Maquina_Elemental:
     def __init__(self, celdaInicial):
         self.acumulador = 0 #Acumulador de la maquina
         self.tablero = {} #Diccionario de celdas
-        self.celdaActual = celdaInicial
+        self.celdaActual = int(celdaInicial, 16) #celdaInicial es un string que representa un numero en base 16
 
     def obtenerValorcelda(self, celda): #Esta funcion devuelve el valor almacenado en la celda. No es parte de las primitivas de la maquina Abacus, sino para la facilitacion del codigo
         return self.tablero[celda]
@@ -42,7 +42,7 @@ class Celda:
         self.comentario = comentario
 
 def main():
-    maqEle = Maquina_Elemental(300)
+    maqEle = Maquina_Elemental("300")
     print(maqEle.tablero)
     print(maqEle.acumulador)
     print(maqEle.celdaActual)
