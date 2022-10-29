@@ -23,7 +23,7 @@ class Maquina_Elemental:
         return self.tablero[celda]
 
     def siguienteCelda(self):
-        hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
+        self.celdaActual = hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
 
     
     def cargaInmediata(self, valor): # 0 guarda el valor pasado directamente en el acumulador
@@ -60,16 +60,41 @@ class Celda:
 
 def main():
     maqEle = Maquina_Elemental("300")
+    print(maqEle)
+    print(maqEle.acumulador)
     print(maqEle.tablero)
-    print(maqEle.acumulador)
-    print(maqEle.mostrarAcumulador())
     print(maqEle.celdaActual)
-    maqEle.almacenar(500)
-    print(maqEle.pasarABinario(300))
-    maqEle.cargaInmediata(300)
-    print(maqEle.acumulador)
-    print(maqEle.mostrarAcumulador())
-    maqEle.notAbacus()
-    print(maqEle.acumulador)
-    print(maqEle.mostrarAcumulador())
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+    maqEle.siguienteCelda()
+    print(maqEle.celdaActual)
+
 main()
