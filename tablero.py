@@ -10,9 +10,3 @@ class Tablero:
                 tablero[celda.strip()] = valor.strip()
 
         return tablero
-
-def main():
-    tablero = Tablero("archivo.abs")
-    print(tablero.tablero)
-
-main()

@@ -1,5 +1,7 @@
+import tablero
+
 class Maquina_Elemental:
-    def __init__(self, celdaInicial):
+    def __init__(self, celdaInicial, archivo):
         self.acumulador = "0" #Acumulador de la maquina
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
@@ -8,6 +10,8 @@ class Maquina_Elemental:
         301: 2300
         }
         '''
+        codigo = tablero.Tablero(archivo)
+        self.tablero = codigo.tablero
         self.celdaActual = celdaInicial #String que representa un numero en base 16
 
     def mostrarAcumulador(self):
@@ -61,10 +65,11 @@ class Celda:
         self.comentario = comentario
 
 def main():
-    maqEle = Maquina_Elemental("300")
+    maqEle = Maquina_Elemental("300","archivo.abs")
     print(maqEle.mostrarAcumulador())
     maqEle.cargaInmediata("400")
     print(maqEle.mostrarAcumulador())
+    print(maqEle.tablero)
     maqEle.actualizarCelda("300","1200")
     print(maqEle.tablero)
     maqEle.almacenar("300")
