@@ -1,9 +1,8 @@
-
+import tablero
 
 class Maquina_Elemental:
-    def __init__(self, celdaInicial):
+    def __init__(self, celdaInicial, archivo):
         self.acumulador = "0" #Acumulador de la maquina
-        self.tablero = {} #Diccionario de celdas
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
         {
@@ -11,6 +10,7 @@ class Maquina_Elemental:
         301: 2300
         }
         '''
+        self.tablero = tablero.Tablero(archivo).tablero
         self.celdaActual = celdaInicial #String que representa un numero en base 16
 
     def mostrarAcumulador(self):
@@ -44,7 +44,7 @@ class Maquina_Elemental:
         self.acumulador += self.obtenerValorcelda(celda)
 
     def notAbacus(self): # 4 Le aplica el not al acumulador
-        self.acumulador = ~self.acumulador
+        self.acumulador = ~self.acumulador #Bytewise not operator
 
     def difIgual(self, celda): # 7 Si el contenido de la celda es igual a 0, entonces vamos a esa celda
         if self.obtenerValorcelda(celda) == 0:
@@ -64,11 +64,14 @@ class Celda:
         self.comentario = comentario
 
 def main():
-    maqEle = Maquina_Elemental("300")
+    maqEle = Maquina_Elemental("300","archivo.abs")
     print(maqEle.mostrarAcumulador())
     maqEle.cargaInmediata("400")
     print(maqEle.mostrarAcumulador())
+    print(maqEle.tablero)
     maqEle.actualizarCelda("300","1200")
+    print(maqEle.tablero)
+    maqEle.almacenar("300")
     print(maqEle.tablero)
 
 main()
