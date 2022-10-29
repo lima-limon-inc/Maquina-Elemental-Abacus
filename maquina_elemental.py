@@ -25,7 +25,12 @@ class Maquina_Elemental:
     def siguienteCelda(self):
         self.celdaActual = hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
 
-    
+    def actualizarCelda(self, celda, valor):
+        self.tablero[celda] = valor
+
+#----------------Primitivas del Abacus------------------------------------------------------------
+
+
     def cargaInmediata(self, valor): # 0 guarda el valor pasado directamente en el acumulador
         self.acumulador = valor
 
@@ -60,41 +65,10 @@ class Celda:
 
 def main():
     maqEle = Maquina_Elemental("300")
-    print(maqEle)
-    print(maqEle.acumulador)
+    print(maqEle.mostrarAcumulador())
+    maqEle.cargaInmediata("400")
+    print(maqEle.mostrarAcumulador())
+    maqEle.actualizarCelda("300","1200")
     print(maqEle.tablero)
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
-    maqEle.siguienteCelda()
-    print(maqEle.celdaActual)
 
 main()
