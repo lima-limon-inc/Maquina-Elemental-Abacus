@@ -1,7 +1,6 @@
 class Maquina_Elemental:
     def __init__(self, celdaInicial):
         self.acumulador = "0" #Acumulador de la maquina
-        self.tablero = {} #Diccionario de celdas
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
         {
@@ -42,7 +41,7 @@ class Maquina_Elemental:
         self.acumulador += self.obtenerValorcelda(celda)
 
     def notAbacus(self): # 4 Le aplica el not al acumulador
-        self.acumulador = ~self.acumulador
+        self.acumulador = ~self.acumulador #Bytewise not operator
 
     def difIgual(self, celda): # 7 Si el contenido de la celda es igual a 0, entonces vamos a esa celda
         if self.obtenerValorcelda(celda) == 0:
