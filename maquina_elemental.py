@@ -10,8 +10,7 @@ class Maquina_Elemental:
         301: 2300
         }
         '''
-        codigo = tablero.Tablero(archivo)
-        self.tablero = codigo.tablero
+        self.tablero = tablero.Tablero(archivo).tablero
         self.celdaActual = celdaInicial #String que representa un numero en base 16
 
     def mostrarAcumulador(self):
