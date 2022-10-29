@@ -1,5 +1,3 @@
-
-
 class Maquina_Elemental:
     def __init__(self, celdaInicial):
         self.acumulador = "0" #Acumulador de la maquina
@@ -69,6 +67,8 @@ def main():
     maqEle.cargaInmediata("400")
     print(maqEle.mostrarAcumulador())
     maqEle.actualizarCelda("300","1200")
+    print(maqEle.tablero)
+    maqEle.almacenar("300")
     print(maqEle.tablero)
 
 main()
