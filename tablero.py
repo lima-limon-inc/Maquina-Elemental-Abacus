@@ -6,7 +6,27 @@ class Tablero:
         tablero = {}
         with open(archivo, "r") as f:
             for linea in f:
-                celda, valor = linea.rstrip("\n").split("|")
-                tablero[celda.strip()] = valor.strip()
+                linea_separada = linea.rstrip("\n").split(",")
+                if len(linea_separada) == 2:
+                    tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip())
+
+                else:
+                    tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip(), linea_separada[1].strip())
+
+                    
 
         return tablero
+
+class Celda:
+    def __init__(self,valor, comentario = ""):
+        self.valor = valor
+        self.comentario = comentario
+
+    def obtener_valor(self):
+        return self.valor
+
+    def obtener_comentario(self):
+        return self.comentario
+
+    def actualizar_valor(self, valorNuevo):
+        self.valor = valorNuevo

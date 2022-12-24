@@ -12,21 +12,35 @@ class Maquina_Elemental:
         '''
         self.tablero = tablero.Tablero(archivo).tablero
         self.celdaActual = celdaInicial #String que representa un numero en base 16
+        self.finPrograma = False
 
-    def mostrarAcumulador(self):
+
+    def __str__(self):
+        texto = ""
+        listOfKeys = []
+        [listOfKeys.append(x) for x in self.tablero]
+        listOfKeys.sort()
+        for line in listOfKeys:
+            texto += f'''
+            {line}: {self.tablero[line]
+            '''
+
+        return str(listOfKeys)
+
+    def _mostrarAcumulador(self):
         return self.acumulador
 
-    def pasarABinario(self, valor): #TODO: Borrar
+    def _pasarABinario(self, valor): #TODO: Borrar
         return bin(valor)#.split("b",1)[1]#[2:]
 
-    def obtenerValorcelda(self, celda): #Esta funcion devuelve el valor almacenado en la celda. No es parte de las primitivas de la maquina Abacus, sino para la facilitacion del codigo
+    def _obtenerValorcelda(self, celda): #Esta funcion devuelve el valor almacenado en la celda. No es parte de las primitivas de la maquina Abacus, sino para la facilitacion del codigo
         return self.tablero[celda]
 
-    def siguienteCelda(self):
+    def _siguienteCelda(self):
         self.celdaActual = hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
 
-    def actualizarCelda(self, celda, valor):
-        self.tablero[celda] = valor
+    def _actualizarCelda(self, celda, valor):
+        self.tablero[celda].actualizar_valor(valor)
 
 #----------------Primitivas del Abacus------------------------------------------------------------
 
@@ -38,7 +52,7 @@ class Maquina_Elemental:
         self.acumulador = self.obtenerValorcelda(celda)
 
     def almacenar(self, celda): # 2 Guarda el contenido del acumulador en la celda pasada
-        self.tablero[celda] = self.acumulador 
+        self.tablero[celda].actualizar_valor(self.acumulador)
 
     def suma(self, celda): # 3 Suma el contenido de la celda al acumulador y lo deja en el acumulador
         self.acumulador += self.obtenerValorcelda(celda)
@@ -58,20 +72,3 @@ class Maquina_Elemental:
         if self.obtenerValorcelda(celda) > 0:
             self.celdaActual = celda
 
-class Celda:
-    def __init__(self,valor, comentario):
-        self.valor = valor
-        self.comentario = comentario
-
-def main():
-    maqEle = Maquina_Elemental("300","archivo.abs")
-    print(maqEle.mostrarAcumulador())
-    maqEle.cargaInmediata("400")
-    print(maqEle.mostrarAcumulador())
-    print(maqEle.tablero)
-    maqEle.actualizarCelda("300","1200")
-    print(maqEle.tablero)
-    maqEle.almacenar("300")
-    print(maqEle.tablero)
-
-main()
