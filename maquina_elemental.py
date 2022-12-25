@@ -1,3 +1,4 @@
+from os import system
 import tablero
 
 class Maquina_Elemental:
@@ -21,9 +22,9 @@ class Maquina_Elemental:
         [listOfKeys.append(x) for x in self.tablero]
         listOfKeys.sort()
         for line in listOfKeys:
-            texto += f'''
-            {line}: {self.tablero[line]}
-            '''
+            if self.celdaActual == line:
+                texto += "> "
+            texto += f'''{line}: {self.tablero[line]} \n'''
 
         return str(texto)
         return str(listOfKeys)
@@ -48,54 +49,57 @@ class Maquina_Elemental:
     def ejecutarCeldaActual(self):
         instruccionCeldaActual = self._obtenerInstruccionCelda(self.celdaActual)
         argumentoCelda = self._obtenerArgumentoCelda(self.celdaActual)
-        print(instruccionCeldaActual)
-        print(argumentoCelda)
+        # print(instruccionCeldaActual)
+        # print(argumentoCelda)
 
         match instruccionCeldaActual:
-            case 0:
+            case '0':
                 self.cargaInmediata(argumentoCelda)
-            case 1:
+            case '1':
                 self.carga(argumentoCelda)
-            case 2:
+            case '2':
                 self.almacenar(str(argumentoCelda))
-            case 3:
+            case '3':
                 self.suma(argumentoCelda)
-            case 4:
+            case '4':
                 self.notAbacus()
-            case 7: 
+            case '7': 
                 self.difIgual(argumentoCelda)
-            case 8:
+            case '8':
                 self.difMenor(argumentoCelda)
-            case 9:
+            case '9':
                 self.difMayor(argumentoCelda)
 
     def _obtenerInstruccionCelda(self, celda) -> int:
-        valorDeLaCelda = str(self._obtenerCelda(celda).obtener_valor())
+        valorDeLaCelda = self._obtenerCelda(celda).obtener_valor()
         instruccion = 0 #TODO: Restructure
         if len(valorDeLaCelda) < 4:
             instruccion = 0 # Hacemos esto como "instruccion default" si alguna celda tiene lognitud menor a 4, entonces asumimos que la instruccion que toma es la de cargaInmediata. Esto es una caracteristica de esta implementacion, no es propio de la especificacion de Abacus
         else:
             instruccion = valorDeLaCelda[0] #Sino el primer numero es la instruccion
 
-        return int(instruccion)
+        return instruccion
 
     def _obtenerArgumentoCelda(self, celda) -> int:
-        argumentoCelda = str(self._obtenerCelda(celda).obtener_valor())
+        argumentoCelda = self._obtenerCelda(celda).obtener_valor()
         valor = 0
         if len(argumentoCelda) < 4:
             valor = argumentoCelda #Si la longitud es menor a 4, devolvemos todo el numero
         else:
             valor = argumentoCelda[1:]
 
-        return int(valor)
-
-
-
-
+        return valor
 
     def start(self):
         while self.finPrograma != True:
-            print(self.celdaActual)
+            # print(self.celdaActual)
+            print(
+                f'''
+                Acumulador:{self._mostrarAcumulador()}
+                '''
+                    )
+            print(self)
+            input()
             self.ejecutarCeldaActual()
             self._siguienteCelda()
 
@@ -106,9 +110,8 @@ class Maquina_Elemental:
     def cargaInmediata(self, valor): # 0 guarda el valor pasado directamente en el acumulador
         self.acumulador = valor
 
-    def carga(self, argumento): # 1 Carga el valor de la celda en el acumulador
-        self.acumulador = argumento
-
+    def carga(self, celda): # 1 Carga el valor de la celda en el acumulador
+        self.acumulador = self.tablero[celda].obtener_valor()
     def almacenar(self, celda): # 2 Guarda el contenido del acumulador en la celda pasada
         self.tablero[celda].actualizar_valor(self.acumulador)
 

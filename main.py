@@ -14,9 +14,9 @@ def main():
     # maqEle._actualizarCelda("300","1200")
     # print(maqEle.tablero)
     # maqEle.almacenar("300")
-    print(maqEle)
+    # print(maqEle)
     maqEle.start()
-    print(maqEle)
+    # print(maqEle)
     # print("Fin")
 
 main()
