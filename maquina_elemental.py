@@ -112,11 +112,12 @@ class Maquina_Elemental:
 
     def carga(self, celda): # 1 Carga el valor de la celda en el acumulador
         self.acumulador = self.tablero[celda].obtener_valor()
+
     def almacenar(self, celda): # 2 Guarda el contenido del acumulador en la celda pasada
         self.tablero[celda].actualizar_valor(self.acumulador)
 
     def suma(self, celda): # 3 Suma el contenido de la celda al acumulador y lo deja en el acumulador
-        self.acumulador += self.obtenerValorcelda(celda)
+        self.acumulador = int(self.acumulador) + int(self.tablero[celda].obtener_valor())
 
     def notAbacus(self): # 4 Le aplica el not al acumulador
         self.acumulador = ~self.acumulador #Bytewise not operator
