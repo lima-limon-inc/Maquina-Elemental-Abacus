@@ -11,7 +11,7 @@ class Tablero:
                     tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip())
 
                 else:
-                    tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip(), linea_separada[1].strip())
+                    tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip(), linea_separada[2].strip())
 
                     
 
@@ -21,6 +21,9 @@ class Celda:
     def __init__(self,valor, comentario = ""):
         self.valor = valor
         self.comentario = comentario
+
+    def __str__(self):
+        return f"{self.valor} | {self.comentario}"
 
     def obtener_valor(self):
         return self.valor

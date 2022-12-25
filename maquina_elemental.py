@@ -22,9 +22,10 @@ class Maquina_Elemental:
         listOfKeys.sort()
         for line in listOfKeys:
             texto += f'''
-            {line}: {self.tablero[line]
+            {line}: {self.tablero[line]}
             '''
 
+        return str(texto)
         return str(listOfKeys)
 
     def _mostrarAcumulador(self):
@@ -33,14 +34,71 @@ class Maquina_Elemental:
     def _pasarABinario(self, valor): #TODO: Borrar
         return bin(valor)#.split("b",1)[1]#[2:]
 
-    def _obtenerValorcelda(self, celda): #Esta funcion devuelve el valor almacenado en la celda. No es parte de las primitivas de la maquina Abacus, sino para la facilitacion del codigo
+    def _obtenerCelda(self, celda): #Esta funcion devuelve el valor almacenado en la celda. No es parte de las primitivas de la maquina Abacus, sino para la facilitacion del codigo
         return self.tablero[celda]
 
     def _siguienteCelda(self):
         self.celdaActual = hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
+        if self.celdaActual not in self.tablero: 
+            self.finPrograma = True
 
     def _actualizarCelda(self, celda, valor):
         self.tablero[celda].actualizar_valor(valor)
+
+    def ejecutarCeldaActual(self):
+        instruccionCeldaActual = self._obtenerInstruccionCelda(self.celdaActual)
+        argumentoCelda = self._obtenerArgumentoCelda(self.celdaActual)
+        print(instruccionCeldaActual)
+        print(argumentoCelda)
+
+        match instruccionCeldaActual:
+            case 0:
+                self.cargaInmediata(argumentoCelda)
+            case 1:
+                self.carga(argumentoCelda)
+            case 2:
+                self.almacenar(str(argumentoCelda))
+            case 3:
+                self.suma(argumentoCelda)
+            case 4:
+                self.notAbacus()
+            case 7: 
+                self.difIgual(argumentoCelda)
+            case 8:
+                self.difMenor(argumentoCelda)
+            case 9:
+                self.difMayor(argumentoCelda)
+
+    def _obtenerInstruccionCelda(self, celda) -> int:
+        valorDeLaCelda = str(self._obtenerCelda(celda).obtener_valor())
+        instruccion = 0 #TODO: Restructure
+        if len(valorDeLaCelda) < 4:
+            instruccion = 0 # Hacemos esto como "instruccion default" si alguna celda tiene lognitud menor a 4, entonces asumimos que la instruccion que toma es la de cargaInmediata. Esto es una caracteristica de esta implementacion, no es propio de la especificacion de Abacus
+        else:
+            instruccion = valorDeLaCelda[0] #Sino el primer numero es la instruccion
+
+        return int(instruccion)
+
+    def _obtenerArgumentoCelda(self, celda) -> int:
+        argumentoCelda = str(self._obtenerCelda(celda).obtener_valor())
+        valor = 0
+        if len(argumentoCelda) < 4:
+            valor = argumentoCelda #Si la longitud es menor a 4, devolvemos todo el numero
+        else:
+            valor = argumentoCelda[1:]
+
+        return int(valor)
+
+
+
+
+
+    def start(self):
+        while self.finPrograma != True:
+            print(self.celdaActual)
+            self.ejecutarCeldaActual()
+            self._siguienteCelda()
+
 
 #----------------Primitivas del Abacus------------------------------------------------------------
 
@@ -48,8 +106,8 @@ class Maquina_Elemental:
     def cargaInmediata(self, valor): # 0 guarda el valor pasado directamente en el acumulador
         self.acumulador = valor
 
-    def carga(self, celda): # 1 Carga el valor de la celda en el acumulador
-        self.acumulador = self.obtenerValorcelda(celda)
+    def carga(self, argumento): # 1 Carga el valor de la celda en el acumulador
+        self.acumulador = argumento
 
     def almacenar(self, celda): # 2 Guarda el contenido del acumulador en la celda pasada
         self.tablero[celda].actualizar_valor(self.acumulador)
