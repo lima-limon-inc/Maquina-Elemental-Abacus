@@ -19,13 +19,15 @@ class Maquina_Elemental:
         self.finPrograma = False
         self.borrarTerminal = borrarTerminal
 
+    def _clear(self):
+        if self.borrarTerminal != True:
+            return 
+        if name == "nt": #Para windows
+            system('cls')
+        else:
+            system('clear')
 
     def __str__(self):
-        if self.borrarTerminal == True:
-            if name == "nt": #Para windows
-                system('cls')
-            else:
-                system('clear')
         texto = ""
 
         texto += (f'''
@@ -70,6 +72,10 @@ class Maquina_Elemental:
 
     def _finMaquina(self):
         self.finPrograma = True
+
+    def _escribirArchivoResultante(self):
+        with open("resultado.abs", "w") as f:
+            f.write(str(self))
 
     def _actualizarCelda(self, celda, valor):
         self.tablero[celda].actualizar_valor(valor)
@@ -120,10 +126,12 @@ class Maquina_Elemental:
 
     def start(self):
         while self.finPrograma != True:
+            self._clear()
             print(self)
             input()
             self.ejecutarCeldaActual()
             self._darFormatoAcumulador()
+        # self._escribirArchivoResultante()
 
 
 #----------------Primitivas del Abacus------------------------------------------------------------

@@ -1,0 +1,23 @@
+
+                Acumulador:0000 
+2fa: 0003 | Esta linea hace carga directa de 3 en el acumulador 
+2fb: 3500 | Esta linea suma el contenido de la celda 500 al acumulador 
+2fc: 2600 | Esta linea almacena el contenido del acumulador en la celda 600 
+2fd: 4000 | Esta linea le aplica el Not logico al acumulador 
+2fe: 3501 | Esta linea suma el contenido de la celda 501 al acumulador 
+2ff: 8302 | Esta linea va a ir a la celda 302 si el acumulador es menor a 0 
+300: 0000 | Esta linea carga 0 en el acumulador 
+301: FFFF | Esta linea termina el programa 
+302: 0000 | Esta linea carga 0 en el acumulador 
+303: 7305 | Esta linea va a ir a la celda 305 si el acumulador es 0 
+304: FFFF | Esta linea termina el programa 
+305: 0069 | Esta linea carga 69 en el acumulador 
+306: 9308 | Esta linea va a ir a la celda 308 si el acumulador es mayor a 0 
+307: FFFF | Esta linea termina el programa 
+308: 0000 | Esta linea carga 0 en el acumulador 
+309: 8302 | Esta linea va a ir a la celda 302 si el acumulador es menor a 0 
+> 30a: FFFF | Esta linea termina el programa 
+400: 0001 | Auxiliar de suma 
+500: 0760 |  
+501: 0001 |  
+600: 0763 |  
