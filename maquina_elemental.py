@@ -61,8 +61,12 @@ class Maquina_Elemental:
 
     def _siguienteCelda(self):
         self.celdaActual = hex(int (self.celdaActual, 16) + 1).split("x",1)[1] #Pasa el numero a decimal, le suma 1, lo pasa a hexadecimal y le saca el "0x" de python del principio
-        if self.celdaActual not in self.tablero: 
-            self.finPrograma = True
+
+        if self.celdaActual not in self.tablero:  #Esto lo ponemos asi para que haya un condicion de corte relativamente "estable" y no  este explotando cada 2x3. Tecnicamente no sigue el estandar de Abacus
+            self._finMaquina()
+
+    def _finMaquina(self):
+        self.finPrograma = True
 
     def _actualizarCelda(self, celda, valor):
         self.tablero[celda].actualizar_valor(valor)
@@ -90,6 +94,8 @@ class Maquina_Elemental:
                 self.difMenor(argumentoCelda)
             case '9':
                 self.difMayor(argumentoCelda)
+            case 'F':
+                self._finMaquina()
 
     def _obtenerInstruccionCelda(self, celda) -> int:
         valorDeLaCelda = self._obtenerCelda(celda).obtener_valor()
