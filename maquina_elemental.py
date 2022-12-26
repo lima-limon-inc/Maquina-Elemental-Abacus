@@ -18,6 +18,12 @@ class Maquina_Elemental:
 
     def __str__(self):
         texto = ""
+
+        texto += (f'''
+                Acumulador:{self._mostrarAcumulador()} \n'''
+                )
+
+
         listOfKeys = []
         [listOfKeys.append(x) for x in self.tablero]
         listOfKeys.sort()
@@ -27,10 +33,19 @@ class Maquina_Elemental:
             texto += f'''{line}: {self.tablero[line]} \n'''
 
         return str(texto)
-        return str(listOfKeys)
 
     def _mostrarAcumulador(self):
         return self.acumulador
+
+    def _darFormatoAcumulador(self):
+        negativo = ""
+        if self.acumulador[0] == "-":
+            negativo = "-"
+            self.acumulador = self.acumulador[1:]
+        longAcumulador = len(self.acumulador)
+
+        self.acumulador = negativo + ((4 - longAcumulador)*"0") + self.acumulador
+
 
     def _pasarABinario(self, valor): #TODO: Borrar
         return bin(valor)#.split("b",1)[1]#[2:]
@@ -91,17 +106,17 @@ class Maquina_Elemental:
         return valor
 
     def start(self):
+        # self.celdaActual = hex(int(self.celdaActual, 16) - 1).split("x",1)[1]
+        # print(self.celdaActual)
+        # print(self)
+        # input()
         while self.finPrograma != True:
             # print(self.celdaActual)
-            print(
-                f'''
-                Acumulador:{self._mostrarAcumulador()}
-                '''
-                    )
+            # print(type(self.acumulador))
             print(self)
             input()
             self.ejecutarCeldaActual()
-            self._siguienteCelda()
+            self._darFormatoAcumulador()
 
 
 #----------------Primitivas del Abacus------------------------------------------------------------
@@ -109,21 +124,26 @@ class Maquina_Elemental:
 
     def cargaInmediata(self, valor): # 0 guarda el valor pasado directamente en el acumulador
         self.acumulador = valor
+        self._siguienteCelda()
 
     def carga(self, celda): # 1 Carga el valor de la celda en el acumulador
         self.acumulador = self.tablero[celda].obtener_valor()
+        self._siguienteCelda()
 
     def almacenar(self, celda): # 2 Guarda el contenido del acumulador en la celda pasada
         self.tablero[celda].actualizar_valor(self.acumulador)
+        self._siguienteCelda()
 
     def suma(self, celda): # 3 Suma el contenido de la celda al acumulador y lo deja en el acumulador
-        self.acumulador = int(self.acumulador) + int(self.tablero[celda].obtener_valor())
+        self.acumulador = str(int(self.acumulador) + int(self.tablero[celda].obtener_valor()))
+        self._siguienteCelda()
 
     def notAbacus(self): # 4 Le aplica el not al acumulador
-        self.acumulador = ~self.acumulador #Bytewise not operator
+        self.acumulador = str(~int(self.acumulador)) #Bytewise not operator
+        self._siguienteCelda()
 
     def difIgual(self, celda): # 7 Si el contenido de la celda es igual a 0, entonces vamos a esa celda
-        if self.obtenerValorcelda(celda) == 0:
+        if int(self.acumulador) == 0:
             self.celdaActual = celda
 
     def difMenor(self, celda): # 8 Si el contenido de la celda es menor a 0, entonces vamos a esa celda
