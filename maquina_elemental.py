@@ -3,7 +3,7 @@ import tablero
 
 class Maquina_Elemental:
     def __init__(self, celdaInicial, archivo, borrarTerminal = False):
-        self.acumulador = "0" #Acumulador de la maquina
+        self.acumulador = "0000" #Acumulador de la maquina
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
         {
@@ -74,8 +74,6 @@ class Maquina_Elemental:
     def ejecutarCeldaActual(self):
         instruccionCeldaActual = self._obtenerInstruccionCelda(self.celdaActual)
         argumentoCelda = self._obtenerArgumentoCelda(self.celdaActual)
-        # print(instruccionCeldaActual)
-        # print(argumentoCelda)
 
         match instruccionCeldaActual:
             case '0':
@@ -118,13 +116,7 @@ class Maquina_Elemental:
         return valor
 
     def start(self):
-        # self.celdaActual = hex(int(self.celdaActual, 16) - 1).split("x",1)[1]
-        # print(self.celdaActual)
-        # print(self)
-        # input()
         while self.finPrograma != True:
-            # print(self.celdaActual)
-            # print(type(self.acumulador))
             print(self)
             input()
             self.ejecutarCeldaActual()
@@ -157,12 +149,19 @@ class Maquina_Elemental:
     def difIgual(self, celda): # 7 Si el contenido del acumulador es igual a 0, entonces vamos a esa celda
         if int(self.acumulador) == 0:
             self.celdaActual = celda
+        else:
+            self._siguienteCelda()
 
     def difMenor(self, celda): # 8 Si el contenido del acumulador es menor a 0, entonces vamos a esa celda
         if int(self.acumulador) < 0:
             self.celdaActual = celda
+        else:
+            self._siguienteCelda()
+
 
     def difMayor(self, celda): # 9 Si el contenido del acumulador es mayor a 0, entonces vamos a esa celda
         if int(self.acumulador) > 0:
             self.celdaActual = celda
+        else:
+            self._siguienteCelda()
 
