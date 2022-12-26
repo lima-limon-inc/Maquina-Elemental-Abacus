@@ -14,6 +14,6 @@ Pull Request mas que  bienvenidos! (Particularmente sobre los TODO's)
 ## TODO (en orden de prioridad):
 - [ ] Importar un excel con codigo Abacus y ejecutarlo
 - [ ] Tener funciones que permitan crear estructuras ya pre-hechas (como un creador de lista que te permita crear una lista de x elementos con valores de ejemplo)
-- [ ] Que escriba el resultado en otro archivo
+- [X] Que escriba el resultado en otro archivo
 - [ ] Tener errores propios y mas lindos (en vez de Keyerror)
 - [ ] Crear un lsp (Ultimo)
