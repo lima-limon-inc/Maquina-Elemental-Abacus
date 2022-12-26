@@ -1,8 +1,8 @@
-from os import system
+from os import system, name
 import tablero
 
 class Maquina_Elemental:
-    def __init__(self, celdaInicial, archivo):
+    def __init__(self, celdaInicial, archivo, borrarTerminal = False):
         self.acumulador = "0" #Acumulador de la maquina
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
@@ -14,9 +14,15 @@ class Maquina_Elemental:
         self.tablero = tablero.Tablero(archivo).tablero
         self.celdaActual = celdaInicial #String que representa un numero en base 16
         self.finPrograma = False
+        self.borrarTerminal = borrarTerminal
 
 
     def __str__(self):
+        if self.borrarTerminal == True:
+            if name == "nt": #Para windows
+                system('cls')
+            else:
+                system('clear')
         texto = ""
 
         texto += (f'''
@@ -142,15 +148,15 @@ class Maquina_Elemental:
         self.acumulador = str(~int(self.acumulador)) #Bytewise not operator
         self._siguienteCelda()
 
-    def difIgual(self, celda): # 7 Si el contenido de la celda es igual a 0, entonces vamos a esa celda
+    def difIgual(self, celda): # 7 Si el contenido del acumulador es igual a 0, entonces vamos a esa celda
         if int(self.acumulador) == 0:
             self.celdaActual = celda
 
-    def difMenor(self, celda): # 8 Si el contenido de la celda es menor a 0, entonces vamos a esa celda
-        if self.obtenerValorcelda(celda) < 0:
+    def difMenor(self, celda): # 8 Si el contenido del acumulador es menor a 0, entonces vamos a esa celda
+        if int(self.acumulador) < 0:
             self.celdaActual = celda
 
-    def difMayor(self, celda): # 9 Si el contenido de la celda es mayor a 0, entonces vamos a esa celda
-        if self.obtenerValorcelda(celda) > 0:
+    def difMayor(self, celda): # 9 Si el contenido del acumulador es mayor a 0, entonces vamos a esa celda
+        if int(self.acumulador) > 0:
             self.celdaActual = celda
 
