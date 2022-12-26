@@ -1,3 +1,6 @@
+# Creado por Fabri
+# Version 1.0
+
 from os import system, name
 import tablero
 

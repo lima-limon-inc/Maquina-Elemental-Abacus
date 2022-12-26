@@ -6,7 +6,8 @@ Pull Request mas que  bienvenidos! (Particularmente sobre los TODO's)
 ![Demostracion](demo.gif)
 
 ## Que hace?
-1. Te permite escribir y ejecutar un codigo Abacus
+1. Te permite escribir y ejecutar un codigo Abacus (Con comentario)
+	1. El codigo tiene que estar en un archivo .abs
 2. Ver el contenido del acumulador
 3. Ver linea a linea lo que la maquina interpreta
 

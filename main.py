@@ -3,7 +3,9 @@ from maquina_elemental import Maquina_Elemental
 
 
 def main():
-    maqEle = Maquina_Elemental("2fa","archivo.abs", True)
+    #                     Celda Inicial | Archivo   | Borre la pantalla despues de cada instruccion
+    #                          \/           \/             \/
+    maqEle = Maquina_Elemental("2fa","codigoEjemplo.abs", True)
     maqEle.start()
 
 main()
