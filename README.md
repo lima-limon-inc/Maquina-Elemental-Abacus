@@ -1,8 +1,9 @@
 # Maquina elemental Abacus
 Este pequeno programa es un interprete de la Maquina Elemental Abacus usada en la materia "Organizacion del Computador" de la Catedra de Benitez. Especificada aqui: https://drive.google.com/file/d/1rz3_wATokWx7XaGZR4H13a8Iq0fjcuaz/view
+
 Pull Request mas que  bienvenidos! (Particularmente sobre los TODO's)
 
-!(demo.gif)
+![Demostracion](demo.gif)
 
 ## Que hace?
 1. Te permite escribir y ejecutar un codigo Abacus
