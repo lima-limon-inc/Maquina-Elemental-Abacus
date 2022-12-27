@@ -1,11 +1,11 @@
 # Creado por Fabri
-# Version 1.1
+# Version 1.2
 
 from os import system, name
 import tablero
 
 class Maquina_Elemental:
-    def __init__(self, celdaInicial, archivo, borrarTerminal = False):
+    def __init__(self, archivo, celdaInicial, borrarTerminal = False):
         self.acumulador = "0000" #Acumulador de la maquina
         '''
         Cada celda es un numero binario en formato hexadecimal de 3 bytes, que tiene guardada una celda de 4 bytes (1 byte para la instruccion y los otros 3 bytes para la celda a la que se le aplica). Nosotros guardamos las celdas como strings que representan numeros en base 16
