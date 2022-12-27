@@ -15,7 +15,7 @@ Pull Request mas que  bienvenidos! (Particularmente sobre los TODO's)
 Si se usa un archivo xlsx, el programa va a devolver un archivo .abs con el codigo abacus extraido del xlsx (este nuevo archivo puede ser editado y ejecutado en corridas posteriores).
 
 ## TODO (en orden de prioridad):
-- [ ] Hacer que el programa soporte argumentos de terminal
+- [X] Hacer que el programa soporte argumentos de terminal
 - [X] Importar un excel con codigo Abacus y ejecutarlo
 	- [ ] Incluir soporte para notacion RodoFabri
 - [ ] Tener funciones que permitan crear estructuras ya pre-hechas (como un creador de lista que te permita crear una lista de x elementos con valores de ejemplo)
