@@ -23,6 +23,8 @@ class Tablero:
         with open(archivo, "r") as f:
             for linea in f:
                 linea_separada = linea.rstrip("\n").split(",", 2)
+                if len(linea_separada) == 1:
+                    continue
                 if len(linea_separada) == 2:
                     tablero[linea_separada[0].strip()] = Celda(linea_separada[1].strip())
                 else:

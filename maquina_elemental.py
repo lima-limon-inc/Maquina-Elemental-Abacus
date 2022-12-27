@@ -1,5 +1,5 @@
 # Creado por Fabri
-# Version 1.0
+# Version 1.1
 
 from os import system, name
 import tablero
