@@ -1,5 +1,21 @@
+EXTENSIONES_VALIDAS = ["abs", "xlsx", "xls"]
+
 class Tablero:
-    def __init__(self, archivo): #TODO: Chequear que el archivo es .abs
+    def __init__(self, archivo):
+        extensionArchivo = (archivo.split(".",1))[1]
+        if extensionArchivo not in EXTENSIONES_VALIDAS:
+            extensionesValidasConFormato = ""
+            for extension in EXTENSIONES_VALIDAS:
+                extensionesValidasConFormato += extension + ", "
+            extensionesValidasConFormato = extensionesValidasConFormato[:-2] #Le saca la coma de mas del ultima extension
+            raise OSError(f'''
+{archivo} no tiene la extension requerida, se necesita un archivo con extension: {extensionesValidasConFormato}''')
+
+        if extensionArchivo != "abs":
+            from leerExcel import leerAbacusExcel #De esta manera, logramos que la libreria openpyxl sea modular/opcional. Solo la descargas si queres
+            leerAbacusExcel(archivo)
+            archivo = str(archivo.split(".",1)[0]) + ".abs"
+
         self.tablero = self.crearTableroDeCodigo(archivo)
 
     def crearTableroDeCodigo(self, archivo): #Devuelve un diccionario
